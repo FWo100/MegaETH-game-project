@@ -7,6 +7,8 @@ import { rbfQueue } from '../chain/rbf'
 import { makeCoalescer } from '../batching/coalescer'
 import { BATCH_ENABLED, BATCH_WINDOW_MS, BATCH_MAX_TIMES } from '../chain/config'
 
+const MAX_PENDING_FLAPS = 10;
+
 export function Controls({ setLastTx, setLatencyMs, addToast }:{ setLastTx: (h:string)=>void, setLatencyMs: (n:number)=>void, addToast: (msg: string) => void }) {
   const [pass, setPass] = useState('')
   const [, setForceUpdate] = useState(0)
@@ -103,13 +105,13 @@ export function Controls({ setLastTx, setLatencyMs, addToast }:{ setLastTx: (h:s
     <div className="panel">
       <div className="row">
         <input type="password" placeholder="Passphrase to unlock burner" value={pass} onChange={(e)=>setPass(e.target.value)} />
-        <button disabled={pendingFlaps >= 4 || rbfQueue.getInFlight() >= rbfQueue.getMaxInFlight()} onClick={async ()=>{
+        <button disabled={pendingFlaps >= MAX_PENDING_FLAPS || rbfQueue.getInFlight() >= rbfQueue.getMaxInFlight()} onClick={async ()=>{
           console.log('🙋 User initiated flap')
           if (coalesceRef.current) {
             coalesceRef.current.recordClick()
             setStatus('Queued...')
           } else {
-            if (pendingFlaps >= 4) return
+            if (pendingFlaps >= MAX_PENDING_FLAPS) return
             setPendingFlaps(p => p + 1)
             try {
               setStatus('Flapping...')

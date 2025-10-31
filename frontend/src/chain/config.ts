@@ -3,10 +3,6 @@ export const RPC_URL = String(import.meta.env.VITE_RPC_URL ?? 'https://carrot.me
 export const WS_URL = String(import.meta.env.VITE_WS_URL ?? 'wss://carrot.megaeth.com/ws')
 export const EXPLORER_BASE = String(import.meta.env.VITE_EXPLORER_BASE ?? 'https://www.megaexplorer.xyz')
 export const FEE_MULTIPLIER_BPS = Number(import.meta.env.VITE_FEE_MULTIPLIER_BPS ?? 10000)
-export const FEE_TOLERANCE_BPS = Number(import.meta.env.VITE_FEE_TOLERANCE_BPS ?? 1000)
-export const DEADLINE_MS_DEFAULT = Number(import.meta.env.VITE_DEADLINE_MS_DEFAULT ?? 500)
-export const DEADLINE_MS_MAX = Number(import.meta.env.VITE_DEADLINE_MS_MAX ?? 750)
-export const REMEMBER_HOURS = Number(import.meta.env.VITE_REMEMBER_HOURS ?? 24)
 
 export const GAME_ADDRESS = (import.meta.env.VITE_GAME_ADDRESS || '').trim()
 export const SESSION_MANAGER_ADDRESS = (import.meta.env.VITE_SESSION_MANAGER_ADDRESS || '').trim()

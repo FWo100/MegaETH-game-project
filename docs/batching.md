@@ -4,7 +4,7 @@ This feature enables on-chain batching of click bursts to absorb rate limits wit
 
 ## How It Works
 
-- **Client coalescer**: Records clicks immediately, buffers for 200ms, then submits a batch.
+- **Client coalescer**: Records clicks immediately, buffers for 500ms, then submits a batch.
 - **Server sender**: Queues batches, sends at 2 tx/s, respects provider rate limits with exponential backoff.
 - **Router contract**: Performs `times` actions in a loop, enforces payment `msg.value == unitPrice * times`.
 
@@ -20,7 +20,7 @@ BATCH_ENABLED=true
 ROUTER_ADDRESS=0x...
 
 # Batch window in ms (click coalesce time)
-BATCH_WINDOW_MS=200
+BATCH_WINDOW_MS=500
 
 # Max batch size (matches router MAX_TIMES=64)
 BATCH_MAX_TIMES=64

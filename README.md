@@ -25,11 +25,11 @@ The system operates through three core components: the **Client Coalescer**, **S
 
 #### Client Coalescer
 
-Actions are collected client-side in a 200ms coalescing window. Instead of immediately submitting individual transactions, actions are buffered and grouped into batches:
+Actions are collected client-side in a 500ms coalescing window. Instead of immediately submitting individual transactions, actions are buffered and grouped into batches:
 
 ```
 Action 1 ──┐
-Action 2    │  ── 200ms ── Batch [Action 1,2,3,4] ── Submit
+Action 2    │  ── 500ms ── Batch [Action 1,2,3,4] ── Submit
 Action 3    │
 Action 4 ──┘
 ```
@@ -98,7 +98,7 @@ The system is configurable through environment variables:
 
 ```
 BATCH_ENABLED=true          # Enable/disable batching layer
-BATCH_WINDOW_MS=200         # Client coalescing window
+BATCH_WINDOW_MS=500         # Client coalescing window
 BATCH_MAX_TIMES=64         # Maximum actions per batch
 BATCH_RATE_PER_SEC=2        # Server submission rate
 ```
